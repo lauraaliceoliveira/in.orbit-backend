@@ -15,6 +15,27 @@
       "when": 1731108526145,
       "tag": "0001_ambiguous_reptil",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731862253887,
+      "tag": "0002_chemical_vapor",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731862376830,
+      "tag": "0003_magical_morlun",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1731863129805,
+      "tag": "0004_broad_magus",
+      "breakpoints": true
     }
   ]
 }
