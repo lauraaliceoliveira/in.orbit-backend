@@ -6,6 +6,7 @@ import {
   getAccessTokenFromCode,
   getUserFromAccessToken,
 } from "../modules/github-oauth";
+import { authenticateUser } from "../modules/auth";
 
 interface AuthenticateFromGithubCodeRequest {
   code: string;
@@ -41,4 +42,8 @@ export async function authenticateFromGithubCode({
 
     userId = insertedUser.id;
   }
+
+  const token = await authenticateUser(userId);
+
+  return { token };
 }
