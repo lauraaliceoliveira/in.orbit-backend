@@ -2,7 +2,7 @@ import { db } from "../db";
 import { goals } from "../db/schema";
 
 interface CreateGoalRequest {
-  userId:  string;
+  userId: string;
   title: string;
   desiredWeeklyFrequency: number;
 }

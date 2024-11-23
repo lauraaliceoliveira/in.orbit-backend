@@ -31,8 +31,11 @@ export const getWeekSummary: FastifyPluginAsyncZod = async (app) => {
         },
       },
     },
-    async () => {
-      const { summary } = await GetWeekSummary();
+    async (request) => {
+      const userId = request.user.sub;
+      const { summary } = await GetWeekSummary({
+        userId,
+      });
 
       return { summary };
     }

@@ -25,8 +25,12 @@ export const getPendingGoalsRoute: FastifyPluginAsyncZod = async (app) => {
         },
       },
     },
-    async () => {
-      const { pendingGoals } = await GetWeekPendingGoals();
+    async (request) => {
+      const userId = request.user.sub;
+
+      const { pendingGoals } = await GetWeekPendingGoals({
+        userId,
+      });
 
       return { pendingGoals };
     }
