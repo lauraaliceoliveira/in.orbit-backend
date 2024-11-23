@@ -16,6 +16,7 @@ import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { authenticateFromGithubRoute } from "./routes/authenticate-from-github";
 import fastifyJwt from "@fastify/jwt";
 import { env } from "../env";
+import { getProfileRoute } from "./routes/get-profile";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -25,7 +26,7 @@ app.register(fastifyCors, {
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
-})
+});
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -49,6 +50,7 @@ app.register(createCompletionRoute);
 app.register(getPendingGoalsRoute);
 app.register(getWeekSummary);
 app.register(authenticateFromGithubRoute);
+app.register(getProfileRoute);
 
 app
   .listen({

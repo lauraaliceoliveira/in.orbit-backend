@@ -1,6 +1,5 @@
 import { z } from "zod";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { createGoal } from "../../functions/create-goal";
 import { authenticateFromGithubCode } from "../../functions/authenticate-from-github-code";
 
 export const authenticateFromGithubRoute: FastifyPluginAsyncZod = async (
