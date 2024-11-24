@@ -1,6 +1,6 @@
-import { count, and, gte, lte, eq, sql } from "drizzle-orm";
+import { count, and, gte, lte, eq, sql, is } from "drizzle-orm";
 import { db } from "../db";
-import { goalCompetions, goals } from "../db/schema";
+import { goalCompetions, goals, users } from "../db/schema";
 import dayjs from "dayjs";
 
 interface CreateGoalCompletionRequest {
@@ -53,11 +53,24 @@ export async function createGoalCompletion({
     throw new Error("Goal completed this week!");
   }
 
-  const insertResult = await db
-    .insert(goalCompetions)
-    .values({ goalId })
-    .returning();
-  const goalCompletion = insertResult[0];
+  const isLastCompletionFromGoal = completionCount + 1 === desiredWeekFrequency;
+  const earnedExperience = isLastCompletionFromGoal ? 7 : 5;
+
+  const goalCompletion = await db.transaction(async (tx) => {
+    const [goalCompletion] = await db
+      .insert(goalCompetions)
+      .values({ goalId })
+      .returning();
+
+    await db
+      .update(users)
+      .set({
+        experience: sql`${users.experience} + ${earnedExperience}`,
+      })
+      .where(eq(users.id, userId));
+
+    return goalCompletion;
+  });
 
   return { goalCompletion };
 }
