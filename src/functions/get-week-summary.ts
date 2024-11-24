@@ -8,11 +8,12 @@ import { goalCompetions, goals } from "../db/schema";
 
 interface GetWeekSummaryRequest {
   userId: string
+  weekStartsAt: Date
 }
 
-export async function GetWeekSummary({ userId }: GetWeekSummaryRequest) {
-  const firstDayOfWeek = dayjs().startOf("week").toDate();
-  const lastDayOfWeek = dayjs().endOf("week").toDate();
+export async function GetWeekSummary({ userId, weekStartsAt }: GetWeekSummaryRequest) {
+  const firstDayOfWeek = weekStartsAt
+  const lastDayOfWeek = dayjs(weekStartsAt).endOf("week").toDate();
 
   const goalsCreatedUpToWeek = db.$with("goals_created_up_to_week").as(
     db

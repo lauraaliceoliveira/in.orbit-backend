@@ -1,8 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { db } from "../db";
-import { users } from "../db/schema";
+import { describe, it, expect } from "vitest";
 import { getUser } from "./get-user";
-import { eq } from "drizzle-orm";
 import { makeUser } from "../../tests/factories/make-user";
 
 describe("get user", () => {
