@@ -2,6 +2,7 @@ import { expect, test } from "vitest";
 import {
   calculateExperienceToLevel,
   calculateLevelFromExperience,
+  calculateTotalExperienceForLevel,
 } from "./gamefication";
 
 test("experience to level", () => {
@@ -13,6 +14,18 @@ test("experience to level", () => {
   expect(exp2).toEqual(26);
   expect(exp4).toEqual(43);
 });
+
+test("total experience to level", () => {
+    const exp1 = calculateTotalExperienceForLevel(1);
+    const exp2 = calculateTotalExperienceForLevel(2);
+    const exp3 = calculateTotalExperienceForLevel(3);
+    const exp4 = calculateTotalExperienceForLevel(4);
+  
+    expect(exp1).toEqual(0);
+    expect(exp2).toEqual(26);
+    expect(exp3).toEqual(26 + 33);
+    expect(exp4).toEqual(26 + 33 + 43);
+  });
 
 test("level from experience", () => {
   const lev1 = calculateLevelFromExperience(10);
