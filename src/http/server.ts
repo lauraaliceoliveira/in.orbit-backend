@@ -18,6 +18,8 @@ import fastifyJwt from "@fastify/jwt";
 import { env } from "../env";
 import { getProfileRoute } from "./routes/get-profile";
 import { getUserExperienceAndLevelRoute } from "./routes/get-user-experience-and-level";
+import { resolve } from "node:path";
+import { writeFile } from "node:fs/promises";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -61,3 +63,16 @@ app
   .then(() => {
     console.log("Running");
   });
+
+
+if (env.NODE_ENV === 'development') {
+  const specFile = resolve(__dirname, '../../swagger.json')
+
+  app.ready().then(() => {
+    const spec = JSON.stringify(app.swagger(), null, 2)
+
+    writeFile(specFile, spec).then(() => {
+      console.log("Swagger spec generated")
+    })
+  })
+}

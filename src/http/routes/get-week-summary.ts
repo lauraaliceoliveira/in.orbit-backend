@@ -12,6 +12,7 @@ export const getWeekSummary: FastifyPluginAsyncZod = async (app) => {
       schema: {
         tags: ["goals"],
         description: "Get week summary",
+        operationId: 'getWeekSummary',
         querystring: z.object({
           weekStartsAt: z.coerce
             .date()
